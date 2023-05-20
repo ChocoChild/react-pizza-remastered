@@ -1,8 +1,17 @@
+import React from 'react'
+import axios from 'axios';
 import { Header, Categories, Sort, PizzaBlock } from './components/allComponents.js';
 import './scss/app.scss';
-import items from './assets/pizzas.json';
 
 function App() {
+  const [pizzasStore, setPizzasStore] = React.useState([]);
+  React.useEffect(() => {
+    axios.get('https://646910e803bb12ac20855e11.mockapi.io/pizzaStore')
+    .then(({ data }) => {
+      console.log(data)
+      setPizzasStore(data[0].pizzas)
+    })
+  },[])
   return (
     <div className="wrapper">
       <Header />
@@ -14,7 +23,7 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            {items.pizzas.map((obj) => (
+            {pizzasStore.map((obj) => (
               <PizzaBlock key={obj.id} {...obj} />
             ))}
           </div>
