@@ -7,20 +7,32 @@ import { Categories, Sort, PizzaBlock } from '../components/allComponents';
 function Home() {
     const [pizzasStore, setPizzasStore] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
+    const [category, setCategory] = React.useState(0);
+    const [sort, setSort] = React.useState({
+      name: 'популярности',
+      sortBy: 'rating',
+    });
     React.useEffect(() => {
-      axios.get('https://646910e803bb12ac20855e11.mockapi.io/pizzaStore')
+      setIsLoading(true)
+
+      const sortBy = sort.sortBy.replace('-', '');
+      const order = sort.sortBy.includes('-') ? 'desc' : 'asc';
+      const categoryId = category > 0 ? `category=${category}` : '';
+
+      axios.get(`https://646910e803bb12ac20855e11.mockapi.io/pizzaStore?${categoryId}&sortBy=${sortBy}&order=${order}`)
       .then(({ data }) => {
-        setPizzasStore(data[0].pizzas)
+        console.log(data)
+        setPizzasStore(data)
         setIsLoading(false);
       })
       window.scrollTo(0, 0)
-    },[])
+    },[category, sort])
 
   return (
     <>
     <div className="content__top">
-            <Categories />
-            <Sort />
+            <Categories value={category} onClickCategory={(index) => setCategory(index)} />
+            <Sort value={sort} onClickSort={(obj) => setSort(obj)} />
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
