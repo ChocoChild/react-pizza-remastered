@@ -13,6 +13,7 @@ function Home() {
         setPizzasStore(data[0].pizzas)
         setIsLoading(false);
       })
+      window.scrollTo(0, 0)
     },[])
 
   return (
