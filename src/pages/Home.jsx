@@ -4,7 +4,7 @@ import axios from 'axios';
 import LoadingSkeleton from '../components/PizzaBlock/LoadingSkeleton';
 import { Categories, Sort, PizzaBlock } from '../components/allComponents';
 
-function Home() {
+function Home({ searchValue }) {
     const [pizzasStore, setPizzasStore] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
     const [category, setCategory] = React.useState(0);
@@ -18,15 +18,18 @@ function Home() {
       const sortBy = sort.sortBy.replace('-', '');
       const order = sort.sortBy.includes('-') ? 'desc' : 'asc';
       const categoryId = category > 0 ? `category=${category}` : '';
+      const search = searchValue ? `&search=${searchValue}` : '';
 
-      axios.get(`https://646910e803bb12ac20855e11.mockapi.io/pizzaStore?${categoryId}&sortBy=${sortBy}&order=${order}`)
+      axios.get(`https://646910e803bb12ac20855e11.mockapi.io/pizzaStore?${categoryId}&sortBy=${sortBy}&order=${order}${search}`)
       .then(({ data }) => {
         console.log(data)
         setPizzasStore(data)
         setIsLoading(false);
       })
       window.scrollTo(0, 0)
-    },[category, sort])
+    },[category, sort, searchValue])
+
+    const pizzaItems = pizzasStore.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
 
   return (
     <>
@@ -38,7 +41,7 @@ function Home() {
           <div className="content__items">
             {isLoading 
             ? [...new Array(6)].map((_, index) => <LoadingSkeleton key={index} />)
-            : pizzasStore.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+            : pizzaItems
           }
           </div>
     </>
