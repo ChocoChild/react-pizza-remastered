@@ -4,8 +4,10 @@ import axios from 'axios';
 import LoadingSkeleton from '../components/PizzaBlock/LoadingSkeleton';
 import { Categories, Sort, PizzaBlock } from '../components/allComponents';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
-function Home({ searchValue }) {
+function Home() {
+  const { searchValue } = React.useContext(SearchContext);
   const [pizzasStore, setPizzasStore] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [category, setCategory] = React.useState(0);
