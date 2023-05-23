@@ -5,17 +5,22 @@ import LoadingSkeleton from '../components/PizzaBlock/LoadingSkeleton';
 import { Categories, Sort, PizzaBlock } from '../components/allComponents';
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
+import { useDispatch, useSelector } from 'react-redux';
+import { sortCategoryId } from '../redux/slices/filterSlice';
 
 function Home() {
+  const {category, sort } = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
+
+  const onClickCategory = (id) => {
+    dispatch(sortCategoryId(id))
+  }
+
   const { searchValue } = React.useContext(SearchContext);
   const [pizzasStore, setPizzasStore] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [category, setCategory] = React.useState(0);
   const [page, setPage] = React.useState(1);
-  const [sort, setSort] = React.useState({
-    name: 'популярности',
-    sortBy: 'rating',
-  });
+
   React.useEffect(() => {
     setIsLoading(true)
 
@@ -26,7 +31,7 @@ function Home() {
 
     axios.get(`https://646910e803bb12ac20855e11.mockapi.io/pizzaStore?page=${page}&limit=4&${categoryId}&sortBy=${sortBy}&order=${order}${search}`)
       .then(({ data }) => {
-        console.log(data)
+
         setPizzasStore(data)
         setIsLoading(false);
       })
@@ -39,8 +44,8 @@ function Home() {
     <>
       <div className='container'>
         <div className="content__top">
-          <Categories value={category} onClickCategory={(index) => setCategory(index)} />
-          <Sort value={sort} onClickSort={(obj) => setSort(obj)} />
+          <Categories value={category} onClickCategory={(index) => onClickCategory(index)} />
+          <Sort />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
