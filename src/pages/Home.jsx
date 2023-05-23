@@ -31,7 +31,6 @@ function Home() {
 
     axios.get(`https://646910e803bb12ac20855e11.mockapi.io/pizzaStore?page=${page}&limit=4&${categoryId}&sortBy=${sortBy}&order=${order}${search}`)
       .then(({ data }) => {
-
         setPizzasStore(data)
         setIsLoading(false);
       })
