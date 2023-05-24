@@ -3,17 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
 
-const sorts = [
+export const sorts = [
   {name:'популярности (DESC', sortBy: 'rating'},
   {name:'популярности (ASC)', sortBy: '-rating'},
   {name: 'цене (DESC)', sortBy: 'price'}, 
   {name: 'цене (ASC)', sortBy: '-price'}, 
   {name: 'алфавиту (DESC)', sortBy: 'title' },
-  {name: 'алфавиту (ASC)', sortBy: '-title' }];
+  {name: 'алфавиту (ASC)', sortBy: '-title' }
+];
 
 function Sort() {
   const dispatch = useDispatch()
-  const sort = useSelector(state => state.filter.sort)
+  const sort = useSelector((state) => state.filter.sort)
   const [isVisible, setIsVisible] = React.useState(false);
 
 
