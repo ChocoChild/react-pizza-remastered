@@ -11,20 +11,20 @@ const Search:React.FC = () => {
     const dispatch = useDispatch()
     const inputRef = React.useRef<HTMLInputElement>(null)
 
-    const onClickClear = () => {
-        setSearchValue('')
+    const onClickClear = (event: React.MouseEvent<SVGSVGElement>) => {
+        dispatch(setSearchValue(''));
         setValue('')
         inputRef.current?.focus();
     }
 
     const updateSearchValue = React.useCallback(
-        debounce((str) => {
+        debounce((str: string) => {
             dispatch(setSearchValue(str))
     }, 250),
     [],
     )
 
-    const onChangeValue = (event:any) => {
+    const onChangeValue = (event:React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)
         updateSearchValue(event.target.value)
     }

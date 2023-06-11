@@ -20,8 +20,8 @@ function Home() {
   const { category, sort, currentPage, searchValue} = useSelector((state) => state.filter);
 
 
-  const onClickCategory = (id) => {
-    dispatch(sortCategoryId(id))
+  const onClickCategory = (index) => {
+    dispatch(sortCategoryId(index))
   }
 
   const onChangePage = (number) => {
