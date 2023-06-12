@@ -1,6 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = {
+type SortSliceItem = {
+    name: string
+    sortBy: 'rating' | 'price' |  'alphabet' | '-rating' | '-price' |  '-alphabet'
+}
+
+interface FilterSlice {
+    searchValue: string,
+    category: number,
+    currentPage: number,
+    sort: SortSliceItem
+}
+
+const initialState: FilterSlice = {
     searchValue: '',
     category: 0,
     currentPage: 1,

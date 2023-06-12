@@ -9,7 +9,7 @@ type CartItemProps = {
   imageUrl: string,
   size: number[],
   type: number[],
-  count: number
+  count: number,
 }
 
 const CartItem:React.FC<CartItemProps> = ({ id, title, price, imageUrl, size, type, count }) => {
@@ -20,6 +20,12 @@ const CartItem:React.FC<CartItemProps> = ({ id, title, price, imageUrl, size, ty
     dispatch(
       addItem({
         id,
+        title: '',
+        price: 0,
+        imageUrl: '',
+        size: 0,
+        type: '',
+        count: 0
       }))
   }
 
