@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 type SortSliceItem = {
     name: string
-    sortBy: 'rating' | 'price' |  'alphabet' | '-rating' | '-price' |  '-alphabet'
+    sortBy: 'rating' | 'price' |  'title' | '-rating' | '-price' |  '-title'
 }
 
 interface FilterSlice {
