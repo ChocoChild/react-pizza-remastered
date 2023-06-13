@@ -83,7 +83,6 @@ function Home() {
 
   const pizzaItems = items.map((obj:any) => <PizzaBlock key={obj.id} {...obj} />)
 
-  console.log(items)
   return (
     <>
       <div className='container'>
